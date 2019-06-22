@@ -1,0 +1,148 @@
+*
+	margin: 0
+	padding: 0
+	box-sizing: border-box
+
+body
+	line-height: 1.25
+	background: #f5f6f7
+
+.wrap
+	margin: 50px
+
+p
+	margin: .2em 0 .5em
+	
+li
+	list-style: inside
+
+.tooltip_icon
+	display: inline-block
+	position: relative
+	opacity: .7
+	margin: 0 .2em
+	width: 1.1em
+	height: 1.1em
+	font-weight: bold
+	text-decoration: none
+	line-height: 1.1
+	text-align: center
+	color: transparentize(#263238, .4)
+	border-radius: 50%
+	border: .07em solid transparentize(#263238, .4)
+	background: transparent
+	transition: .2s
+
+	&:before
+		content: '?'
+	
+	&:hover
+		opacity: 1
+		color: lighten(#f5f6f7, 4%)
+		border: .07em solid darken(#f5f6f7, 5%)
+		background: transparentize(#263238, .4)
+
+	&:hover > .tooltip
+		visibility: visible
+		opacity: 1
+		transform: translate(0)
+
+
+$triangle: .5em
+$margin: 2em
+
+.tooltip	
+	display: block
+	visibility: hidden
+	position: absolute
+	opacity: .7
+	padding: .5em 1em
+	width: auto
+	min-width: 18em
+	height: auto
+	font-size: .9em
+	text-align: left
+	color: #cfd8dc
+	border-radius: .25em
+	border: .07em solid darken(#263238, 3%)
+	background-color: transparentize(#263238, .03)
+	box-shadow: 0 .07em .07em transparentize(#cfd8dc, .84)
+	user-select: none
+	transition: transform .2s ease, opacity .2s
+
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		width: 0
+		height: 0
+		border: $triangle solid transparent
+
+	&:before
+		z-index: 2
+
+	&:after
+		z-index: 1
+
+.tooltip[position="top"]
+	left: -$margin
+	bottom: $margin
+	transform: translateY(1em)
+
+	&:before
+		left: $margin
+		bottom: -($triangle * 2)
+		border-top-color: transparentize(#263238, .03)
+
+	&:after
+		left: $margin + .07em
+		bottom: -($triangle * 2)
+		border-top-color: transparentize(#cfd8dc, .84)
+
+.tooltip[position="right"]
+	top: -$margin
+	left: $margin
+	transform: translateX(-1em)
+
+	&:before
+		top: $margin
+		left: -($triangle * 2)
+		border-right-color: transparentize(#263238, .03)
+
+	&:after
+		top: $margin + .07em
+		left: -($triangle * 2)
+		border-right-color: transparentize(#cfd8dc, .84)
+
+.tooltip[position="bottom"]
+	top: $margin
+	left: -$margin
+	transform: translateY(-1em)
+
+	&:before
+		top: -($triangle * 2)
+		left: $margin
+		border-bottom-color: transparentize(#263238, .03)
+
+	&:after
+		top: -($triangle * 2)
+		left: $margin + .07em
+		border-bottom-color: transparentize(#cfd8dc, .84)
+
+.tooltip[position="left"]
+	top: -$margin
+	right: $margin
+	transform: translateX(1em)
+
+	&:before
+		top: $margin
+		right: -($triangle * 2)
+		border-left-color: transparentize(#263238, .03)
+
+	&:after
+		top: $margin + .07em
+		right: -($triangle * 2)
+		border-left-color: transparentize(#cfd8dc, .84)
+
+
+
