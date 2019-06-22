@@ -1,0 +1,230 @@
+$size-card: 320px
+$columns: 3
+$gap: 5px
+
+$shade-white_theme: #f5f5f5
+$shade-black_theme: #1e1e1e
+$white_theme: #000
+$black_theme: #fff
+
+@import url('https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i|Roboto:500,500i,700,700i&subset=cyrillic')
+
+body
+	margin: 0
+	font-family: 'PT Serif', serif
+	font-size: 11pt
+	font-weight: 400
+
+main
+	margin: auto
+	padding: 5px 0 20px
+	width: $size-card * $columns
+	line-height: 1.25
+	transition: .3s ease-out
+	transition-property: margin, padding
+	white-space: normal
+
+section
+	display: flex
+	flex-direction: row
+	justify-content: center
+	align-items: center
+	box-sizing: border-box
+	user-select: none
+	margin-bottom: $gap * 2
+	height: $size-card
+
+.card
+	position: relative
+	margin: 0 $gap
+	height: 100%
+	border-radius: 5px
+	border: 1px solid rgba(0, 0, 0, .15)
+	box-shadow: 0 $gap / 2 $gap * 2 0 rgba(0, 0, 0, .4)
+	box-sizing: border-box
+	overflow: hidden
+	
+	a
+		display: block
+		text-decoration: none
+		color: currentColor		
+	
+	// Background image
+	a > img, a > div:first-of-type
+		position: absolute
+		top: 0
+		right: 0
+		z-index: 1
+		
+	a > div:first-of-type
+		width: 100%
+		height: 100%
+		z-index: 2
+		
+	&._small
+		width: $size-card
+		
+		a > img
+			width: 100%
+			height: auto
+
+		&._black
+			a > div:first-of-type
+				background: linear-gradient(to top, $shade-black_theme 37%, transparent 70%)
+
+		&._white
+			a > div:first-of-type
+				background: linear-gradient(to top, $shade-white_theme 37%, transparent 70%)
+
+	&._big
+		width: ($size-card * 2) + ($gap * 2)
+		
+		a > img
+			width: auto
+			height: 100%
+
+		&._black
+			a > div:first-of-type
+				background: linear-gradient(to right, $shade-black_theme 37%, transparent 70%)
+
+		&._white
+			a > div:first-of-type
+				background: linear-gradient(to right, $shade-white_theme 37%, transparent 70%)
+	// Background image END
+	
+	// Description
+	a > div:nth-of-type(3)
+		position: absolute
+		bottom: 0
+		left: 0
+		display: flex
+		flex-direction: column
+		justify-content: flex-start
+		padding: 0 20px 12px
+		height: 50%
+		word-break: keep-all
+		overflow-wrap: break-word
+		overflow: hidden
+		box-sizing: border-box
+		z-index: 2
+
+	&._big a > div:nth-of-type(3)
+		width: 50%
+		height: 92%
+		
+	&.small a > div:nth-of-type(3)
+		width: 100%
+		height: 55%
+		
+	&._white
+		color: $white_theme
+	
+		.icon
+			fill: $white_theme
+
+		._bottom > span:nth-child(2) > span
+			color: $black_theme
+
+	&._black
+		color: $black_theme
+	
+		.icon
+			fill: $black_theme
+	
+		._bottom > span:nth-child(2) > span
+			color: $white_theme
+
+	h2
+		margin: 0 0 8px
+		font-family: 'Roboto', sans-serif
+		font-weight: 500
+		font-size: 1.5em
+		line-height: 1.1
+		
+	p
+		opacity: .8
+		margin: 0 0 8px
+		height: 100%
+		font-size: 1em
+		font-weight: 400
+		line-height: 1.2
+		overflow: hidden
+		
+		> span:first-of-type
+			display: none
+	// Description END
+
+	// Bottom line: autor, comments, rating
+	._bottom
+		display: grid
+		grid-template-rows: 32px
+		grid-template-columns: auto auto 23px 23px
+		width: 100%
+		
+		> span
+			justify-self: center
+			align-self: center
+			position: relative
+			padding: 0 3px
+			opacity: .6
+			letter-spacing: .05em
+			line-height: 1.15
+			text-transform: uppercase
+		
+		> span:not(:first-of-type)
+			cursor: pointer
+			transition: opacity .1s ease-out
+		
+			&:hover
+				opacity: 1
+			
+		> span:first-of-type
+			justify-self: start
+	
+		> span:nth-child(2) > span
+			position: absolute
+			top: 0
+			left: 50%
+			transform: translateX(-50%)
+			font-size: .75em
+			font-weight: 700
+			line-height: 13px
+			z-index: 1
+	
+	.comment
+		width: 18px
+		height: 14px
+
+	.like, .dislike
+		width: 23px
+		height: 32px
+	// Bottom line END
+	
+	// Hover effect
+	a > div:nth-of-type(2)
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		opacity: 0
+		transition: opacity .3s ease-in-out, all 0.1s cubic-bezier(.25, .46, .45, .94)
+		z-index: 2
+
+	&._white a > div:nth-of-type(2)
+		background-color: hsla(0, 0%, 100%, .15)
+
+	&._black a > div:nth-of-type(2)
+		background-color: hsla(0, 0%, 0%, .15)
+
+	a > img
+		transition: all ease 1.3s
+		overflow: hidden
+	
+	&:hover a > img
+		transform: scale(1.03)
+		filter: grayscale(40%) brightness(110%)
+		
+	&:hover a > div:nth-of-type(2)
+		opacity: 1
+	// Hover effect END
