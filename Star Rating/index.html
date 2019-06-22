@@ -1,0 +1,48 @@
+<div class="rating-wrap">
+	<div class="thanks">Thank you for rating!</div>
+	<div class="rating">
+		<input type="range" min="0" max="5" step="0.1" value="" readonly>
+
+		<div class="rating-stars">
+			<div class="placehold">
+				<input type="radio" name="rating" id="5-stars" value="5"><label for="5-stars"></label><input type="radio" name="rating" id="4-stars" value="4"><label for="4-stars"></label><input type="radio" name="rating" id="3-stars" value="3"><label for="3-stars"></label><input type="radio" name="rating" id="2-stars" value="2"><label for="2-stars"></label><input type="radio" name="rating" id="1-star" value="1"><label for="1-star"></label>
+			</div>
+
+			<div class="slider">
+				<svg class="svg" viewBox="0 0 500 100"><rect height="100" fill="url(#rating)" x="0" y="0"/></svg>
+			</div>
+		</div>
+	</div>
+	<div class="number-votes">Votes:<span></span></div>
+	<div class="average-rating"></div>
+</div>
+
+<!-- Star svg -->
+<svg width="0" height="0" viewBox="0 0 100 100">
+	<clipPath id="star">
+		<path d="M 44.675463,5.8046818 32.56075,30.368057 5.4557026,34.319708 c -4.86072673,0.705003 -6.8087272,6.697428 -3.2837723,10.1296 L 21.781811,63.558262 17.14371,90.551989 c -0.834855,4.879315 4.304156,8.534111 8.608312,6.252184 L 49.999998,84.058654 74.247975,96.804173 c 4.304156,2.263397 9.44317,-1.372869 8.608312,-6.252184 L 78.21819,63.558262 97.828066,44.449308 c 3.524964,-3.432172 1.576954,-9.424597 -3.283772,-10.1296 L 67.439248,30.368057 55.324534,5.8046818 c -2.170626,-4.378365 -8.459887,-4.434032 -10.649071,0 z"/>
+	</clipPath>
+	
+	<symbol viewBox="0 0 100 100" id="star-base">
+		<path d="M 44.675463,5.8046818 32.56075,30.368057 5.4557026,34.319708 c -4.86072673,0.705003 -6.8087272,6.697428 -3.2837723,10.1296 L 21.781811,63.558262 17.14371,90.551989 c -0.834855,4.879315 4.304156,8.534111 8.608312,6.252184 L 49.999998,84.058654 74.247975,96.804173 c 4.304156,2.263397 9.44317,-1.372869 8.608312,-6.252184 L 78.21819,63.558262 97.828066,44.449308 c 3.524964,-3.432172 1.576954,-9.424597 -3.283772,-10.1296 L 67.439248,30.368057 55.324534,5.8046818 c -2.170626,-4.378365 -8.459887,-4.434032 -10.649071,0 z"/>
+	</symbol>
+
+	<pattern id="rating" patternUnits="userSpaceOnUse" width="100" height="100" viewBox="0 0 100 100">
+    <use x="0" y="0" xlink:href="#star-base" width="100" height="100"/>
+  </pattern>
+	
+  <pattern id="empty-star" patternUnits="userSpaceOnUse" width="100" height="100">
+    <use x="0" y="0" xlink:href="#star-base" fill="#ccc" width="100" height="100"/>
+  </pattern>
+
+  <pattern id="full-star" patternUnits="userSpaceOnUse" width="100" height="100">
+    <use x="0" y="0" xlink:href="#star-base" fill="#00b8d4" width="100" height="100"/>
+  </pattern>
+</svg>
+
+
+<!-- Blue stars svg -->
+<svg class="svg-blue" viewBox="0 0 500 100">
+  <rect width="500" height="100" fill="url(#empty-star)" x="0" y="0"/>
+  <rect class="rating-blue" height="100" fill="url(#full-star)" x="0" y="0"/>
+</svg>
