@@ -1,0 +1,132 @@
+$star-size: 30 // pixels
+$star-empty: #ccc
+$star-full: #ffcb00
+$text: #737373
+
+body
+	margin: 0
+	padding: 0
+	overflow: hidden
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap')
+
+// SVG Settings
+.svg
+	width: $star-size * 5 + px
+	height: $star-size + px
+	viewBox: 0 0 $star-size * 5 + px $star-size + px
+
+#star
+	transform: scale($star-size / 100)
+
+#rating
+	fill: $star-full
+
+.slider > svg rect
+	width: 0
+	transition: width 1s linear
+// SVG Settings END
+
+.rating-wrap
+	display: grid
+	grid-template-rows: ($star-size + $star-size * .2 * 2) + px auto
+	grid-template-columns: 6.7em ($star-size * 5 + $star-size * .2 * 2) + px 1.85em
+	justify-content: start
+	margin: 20px
+	font-family: 'Lato', sans-serif
+	font-size: $star-size * 1.25 + px
+	user-select: none
+
+.thanks
+	grid-row: 1/2
+	grid-column: 1/2
+	opacity: 0
+	font-size: .7em
+	font-weight: 400
+	line-height: ($star-size + $star-size * .2 * 2) + px
+	text-align: right
+	color: #b71c1c
+	box-sizing: border-box
+	transition: opacity .7s linear
+
+.number-votes
+	grid-row: 2/3
+	grid-column: 2/3
+	font-size: .6em
+	font-weight: 400
+	line-height: 1em
+	text-align: center
+	color: $text
+	box-sizing: border-box
+
+.average-rating
+	grid-row: 1/2
+	grid-column: 3/4
+	padding-left: $star-size * .2 + px
+	font-size: 1em
+	font-weight: 700
+	line-height: ($star-size + $star-size * .2 * 2) + px
+	text-align: left
+	color: $star-full
+	text-shadow: $star-size * .04 + px $star-size * .04 + px $star-size * .1 + px transparentize($text, .7)
+	box-sizing: border-box
+
+.rating
+	grid-row: 1/2
+	grid-column: 2/3
+	padding: $star-size * .2 + px
+	box-sizing: border-box
+
+	input
+		display: none
+
+	input:checked ~ label
+		background: $star-full
+
+.rating-stars
+	position: relative
+	width: $star-size * 5
+	height: 100%
+	white-space: nowrap
+	box-sizing: border-box
+
+	&:hover > .slider
+		display: none
+
+.placehold
+	display: flex
+	flex-direction: row-reverse
+	
+	> label
+		cursor: pointer
+		display: inline-block
+		width: $star-size + px
+		height: $star-size + px
+		clip-path: url("#star")
+		background: $star-empty
+		box-sizing: border-box
+
+		&:hover
+			background: darken($star-full, 2%)
+			transform: scale(1.2)
+
+			~ label
+				background: $star-full
+
+.slider
+	position: absolute
+	top: 0
+	left: 0
+	font-size: 0
+	box-sizing: border-box
+	
+	
+	
+	
+.rating-blue
+	width: 45%
+
+.svg-blue
+	width: ($star-size * 5) * .7 + px
+	height: $star-size * .7 + px
+	viewBox: 0 0 ($star-size * 5) * .7 + px $star-size * .7 + px
