@@ -1,0 +1,681 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:200,300,400,500)
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap')
+
+html
+	height: 100%
+	
+body
+	font-size: 16px
+	background-image: linear-gradient(#bdbdbd, #eee)
+	overflow-x: hidden
+
+// Settings
+// Main
+$width: 600px
+$height: 300px
+$rounding: 5px
+$border-size: 3px
+$accent-color: #71ad37
+$back-color: #ccc
+
+$max-slides: 10
+$sliding: 'horizontal' // horizontal or vertical
+
+// Arrow
+$arrow-size: 3.15em
+$arrow-color: $back-color
+$arrow-shadow: #3f3f3f
+
+// Dot
+$dot-size: .75em
+$dot-distance-top: 1.7em
+$dot-color: $back-color
+
+
+// Appearance
+.slider-container
+	position: relative
+	margin: 20px auto $dot-distance-top + 3 * $dot-size
+	font-family: 'Lato', sans-serif
+	font-weight: 400
+	text-align: left
+	perspective: 1300px
+	user-select: none
+	
+	> input[type='radio']
+		display: none
+	
+		// image shift
+		$index: $max-slides
+		@while $index > 0
+			&:nth-of-type(#{$index}):checked ~ ul li:first-of-type
+				@if $sliding == 'horizontal'
+					margin-left: -100% * ($index - 1)
+				@if $sliding == 'vertical'
+					margin-top: -$height * ($index - 1)
+				$index: $index - 1
+		
+	label
+		cursor: pointer
+		text-decoration: none
+
+	> ul
+		position: relative
+		margin: 0 auto
+		padding: 0
+		width: $width
+		height: $height + 2 * $border-size
+		font-size: 0
+		line-height: 0
+		white-space: nowrap
+		border-radius: $rounding
+		border: $border-size solid $back-color
+		background-color: $back-color
+		box-shadow: 0 3px 20px transparentize($arrow-shadow, .65)
+		overflow: hidden
+		box-sizing: border-box
+		z-index: 1
+		
+		> li
+			@if $sliding == 'horizontal'
+				display: inline-block
+			@if $sliding == 'vertical'
+				display: block
+			position: relative
+			width: 100%
+			height: 100%
+			font-size: initial
+			line-height: normal
+			white-space: normal
+			box-sizing: border-box
+			overflow: hidden
+			user-select: text
+			transition: all .5s cubic-bezier(.175, .885, .32, 1.275) // cubic-bezier(.215, .61, .355, 1)
+		
+			// Responsive images (ensure images don't scale beyond their parents)
+			img
+				margin: auto
+				max-width: 100%
+				width: auto\9
+				height: auto
+				vertical-align: middle
+				-ms-interpolation-mode: bicubic
+				overflow: hidden
+				transition: all ease 1.3s
+
+				&:hover
+					transform: scale(1.03)
+
+.arrows
+	position: absolute
+	top: 0
+	right: 50%
+	bottom: 0
+	left: 50%
+	transform: translateX(-50%)
+	width: $width
+	height: $height
+	border-radius: $rounding
+	box-sizing: border-box
+	overflow: hidden
+	-webkit-touch-callout: none
+	z-index: 99
+	clip-path: polygon(0% 0%, 80px 0%, 80px 100%, 0% 100%, 0% 0%, ($width - 80px) 0%, 100% 0%, 100% 100%, ($width - 80px) 100%, ($width - 80px) 0%)
+
+	label
+		opacity: 0
+		width: 80px
+		height: $height
+		line-height: $height
+		box-sizing: border-box
+		transition: opacity .2s ease-out
+
+		&:before
+			content: '\23f4'
+			position: absolute
+			bottom: 0
+			padding: .2em
+			height: 100%
+			font-size: 0
+			color: transparentize($arrow-color, .2)
+			text-shadow: 0 0 ($arrow-size * .07) transparentize($arrow-shadow, .45)
+
+		&:hover
+			opacity: 1
+
+// Left arrow
+%prev
+	float: left
+	background: linear-gradient(to left, transparentize($arrow-shadow, 1) 0%, transparentize($arrow-shadow, .8) 100%)
+	transition: opacity 0 ease-out
+
+	&:before
+		left: 0
+		font-size: $arrow-size
+
+@for $i from 1 through $max-slides
+	.slider-container > input[id^='slides_']:first-of-type:checked ~ .arrows label.goto-last,
+	.slider-container > input[id^='slides_']:nth-of-type(#{$i}):checked ~ .arrows > label:nth-of-type(#{$i - 1})
+		@extend %prev
+
+// Right arrow
+%next
+	float: right
+	background: linear-gradient(to right, transparentize($arrow-shadow, 1) 0%, transparentize($arrow-shadow, .8) 100%)
+	transition: opacity 0 ease-out
+
+	&:before
+		right: 0
+		font-size: $arrow-size
+		transform: rotateZ(180deg)
+
+@for $i from 1 through $max-slides
+	.slider-container > input[id^='slides_']:last-of-type:checked ~ .arrows label.goto-first,
+	.slider-container > input[id^='slides_']:nth-of-type(#{$i}):checked ~ .arrows > label:nth-of-type(#{$i + 1})
+		@extend %next
+
+.bullets
+	display: flex
+	flex-flow: row nowrap
+	justify-content: center
+	align-items: center
+	position: absolute
+	left: 50%
+	bottom: 0
+	transform: translateX(-50%)
+	margin-bottom: -$dot-distance-top
+	width: 100%
+	height: 2 * $dot-size
+	z-index: 99
+	overflow: hidden
+	box-sizing: border-box
+	-webkit-touch-callout: none
+
+	label
+		position: relative
+		opacity: .9
+		margin: 0 $dot-size * .15
+		padding: 0
+		width: $dot-size
+		height: $dot-size
+		border-radius: 50%
+		background-color: $dot-color
+		box-shadow: inset 0 0 ($dot-size * .15) rgba(0, 0, 0, .5)
+		overflow: hidden
+		box-sizing: border-box
+		transform: scale(.75)
+
+		&:after
+			content: ''
+			position: absolute
+			left: 0
+			bottom: 0
+			width: 100%
+			height: 0
+			background: $accent-color
+			transition: .3s ease-in-out
+
+		&:hover
+			background-color: $accent-color
+			transform: scale(1)
+
+// active bullet
+%active
+	box-shadow: none
+	transform: scale(1)
+
+	&:after
+		height: 100%
+
+	&:checked:after
+		height: 0
+
+@for $i from 1 through $max-slides
+	.slider-container > input[id^='slides_']:nth-of-type(#{$i}):checked ~ .bullets label:nth-of-type(#{$i})
+		@extend %active
+
+	
+
+
+
+// Slider for all content
+h2
+	font-size: 2.5em
+	font-weight: 700
+
+h3
+	font-size: 1.5em
+	font-weight: 400
+	color: #71ad37
+
+a
+	font-variant: small-caps
+	text-decoration: none
+	text-transform: uppercase
+	letter-spacing: 2px
+
+
+// Styles for slide 1
+.slider-container > ul > li:nth-of-type(1)
+	h2, h3
+		margin-bottom: .3em
+		padding-left: .5em
+
+	p
+		margin: 0
+		padding: 0 1.2em 1.2em
+		font-size: 1em
+		line-height: 1.4
+		text-align: justify
+
+
+// Styles for slide 3
+.slider-container
+	> ul > li:nth-of-type(3)
+		background: url(https://raw.github.com/drygiel/csslider/master/examples/themes/fruit.jpg)
+
+	// Transition is added here to instantly hide when slide is changed 
+	> input[id^='slides_']:nth-of-type(3):checked ~ ul .slide3-bg
+		padding: 22px
+		width: 80%
+		transition: .5s .5s
+
+		div
+			transform: translate(0)
+			transition: .5s .9s
+
+.slide3-bg
+	position: absolute
+	top: 16%
+	left: 0
+	padding: 22px 0
+	width: 0
+	height: 20%
+	color: #000
+	overflow: hidden
+	z-index: 10
+
+	// Blurry background
+	&:before
+		content: ''
+		position: absolute
+		top: 1px
+		left: -1px
+		width: 100%
+		height: 100%
+		background: url(https://raw.github.com/drygiel/csslider/master/examples/themes/fruit.jpg) 1px 23%
+		filter: blur(8px) brightness(115%)
+		z-index: -1
+
+	&:after
+		content: ''
+		pointer-events: none
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		background: rgba(0, 0, 0, .35)
+		z-index: 20
+
+	div
+		transform: translate(120%)
+	
+	h2
+		margin: 0
+		font-size: 2.5em
+
+	p
+		margin: .3em 0
+		padding: 0
+		font-size: 1em
+		line-height: 1.4
+		text-align: justify
+
+
+// Styles for slide 4
+.slider-container > ul > li.scrollable
+	margin: 0
+	padding-top: .5em
+	overflow-y: scroll
+
+.scrollable h2
+	margin: .3em 0 0
+	padding-left: .7em
+
+.scrollable h3
+	margin: .3em 0 0
+	padding-left: 1.2em
+
+.scrollable p
+	margin: 0
+	padding: .15em 1.8em
+	font-size: 1em
+	text-align: justify
+	line-height: 1.4
+
+	&:last-of-type
+		padding-bottom: 1em
+
+.scrollable::-webkit-scrollbar
+	width: 3px
+	background: rgba(255, 255, 255, .1)
+
+.scrollable::-webkit-scrollbar-track
+	background: none
+
+.scrollable::-webkit-scrollbar-thumb
+	background: rgba(74, 168, 0, .6)
+
+
+// Styles for slide 5
+.center
+	margin-top: 25%
+	text-align: center
+	transform: translateY(-50%)
+
+	&:hover a
+		color: $accent-color // To override default hover color
+
+		&:after
+			width: 100%
+
+a
+	position: relative
+	color: $accent-color
+
+	&:after
+		content: attr(data-text)
+		display: inline-block
+		position: absolute
+		top: 0
+		left: 0
+		width: 0
+		max-width: 100% // 'cause of IE bug
+		min-height: 100%
+		white-space: nowrap
+		text-align: justify
+		color: #b71c1c
+		background: $back-color
+		overflow: hidden
+		transition: .5s
+
+	
+// Styles for slide 6
+.slider-container
+	> input[id^='slides_']:nth-of-type(6):checked ~ ul .play
+		animation: sign-anim 3.5s .5s steps(85) forwards
+
+.play
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
+	opacity: .7
+	width: 255px
+	height: 84px
+	background: url(http://www.drygiel.com/projects/sign/frames-255-white.png) 0 0 no-repeat
+	filter: invert(30%) brightness(0%) sepia(100%) 
+
+	&:hover
+		opacity: 1
+		filter: invert(30%) brightness(80%) sepia(100%) contrast(110%) saturate(953%) hue-rotate(45deg)
+
+@keyframes sign-anim
+	to
+		background-position: 0 (85 * -84px)
+
+
+
+
+
+// Slider for image zoom
+$animation: 3s cubic-bezier(.19, 1, .22, 1) forwards
+
+.slider-container	> article
+	display: flex
+	justify-content: center
+	align-items: center
+	position: relative
+	margin: auto
+	width: $width
+	height: $height + 2 * $border-size
+	border-radius: $rounding
+	border: $border-size solid $back-color
+	background-color: transparent
+	box-shadow: 0 3px 20px transparentize($arrow-shadow, .65)
+	overflow: hidden
+	box-sizing: border-box
+	z-index: 1
+		
+	img
+		opacity: 0
+		margin: auto
+		width: 100%
+		height: auto
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		z-index: -1
+
+@for $i from 1 through $max-slides
+	.slider-container > input[id^='img_']:nth-of-type(#{$i}):checked ~ article img:nth-of-type(#{$i - 1}),
+	.slider-container > input[id^='img_']:nth-of-type(#{$i}):checked ~ article img:nth-of-type(#{$i + 1})
+		animation: old_img $animation
+
+@for $i from 1 through $max-slides
+	.slider-container > input[id^='img_']:nth-of-type(#{$i}):checked ~ article img:nth-of-type(#{$i})
+		animation: new_img $animation
+
+@keyframes old_img
+	0%
+		opacity: 1
+		transform: scale(1)
+		z-index: 1
+	80%
+		opacity: 0
+		transform: scale(1.1)
+		z-index: -1
+
+@keyframes new_img
+	0%
+		opacity: 0
+		transform: scale(1.3)
+		z-index: -1
+	100%
+		opacity: 1
+		transform: scale(1)
+		z-index: 1
+
+@for $i from 1 through $max-slides
+	.slider-container > input[id^='img_']:first-of-type:checked ~ .arrows label.goto-last,
+	.slider-container > input[id^='img_']:nth-of-type(#{$i}):checked ~ .arrows > label:nth-of-type(#{$i - 1})
+		@extend %prev
+
+	.slider-container > input[id^='img_']:last-of-type:checked ~ .arrows label.goto-first,
+	.slider-container > input[id^='img_']:nth-of-type(#{$i}):checked ~ .arrows > label:nth-of-type(#{$i + 1})
+		@extend %next
+
+	.slider-container > input[id^='img_']:nth-of-type(#{$i}):checked ~ .bullets label:nth-of-type(#{$i})
+		@extend %active
+
+
+
+
+
+// Slider for brands
+// Infinite Autoplay Logo Carousel (CSS)
+$width-brand: 250px
+$height-brand: 100px
+$brand-count: 14
+$animationSpeed: 40s
+
+// Animation
+@keyframes scroll
+	0%
+		transform: translateX(0)
+	100%
+		transform: translateX(-$width-brand * $brand-count / 2)
+
+// Styling
+.slider-brand
+	position: relative
+	margin: 30px auto
+	max-width: 720px // Any. Content width
+	width: 100%
+	height: $height-brand
+	background: white
+	box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125)
+	overflow: hidden
+	
+	.slide-track
+		display: flex
+		width: $width-brand * $brand-count
+		animation: scroll $animationSpeed linear infinite
+	
+	img
+		width: $width-brand
+		height: $height-brand
+		
+	// gradients around the edges
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		width: $height-brand
+		height: $height-brand
+		background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)
+		z-index: 2
+	
+	&:after
+		top: 0
+		right: 0
+		transform: rotateZ(180deg)
+	
+	&:before
+		top: 0
+		left: 0
+	
+
+
+
+
+// Static slider with annotations
+// Annotated Linear Carousel (CSS)
+$static_width: 600px
+$static_height: 300px
+
+.static-slider 
+	position: relative
+	margin: 30px auto
+	width: $static_width
+	height: $static_height
+	font-family: 'roboto', 'helvetica neue', arial, sans-serif
+	box-shadow: 0 2px 6px rgba(0, 0, 0, .3)
+	overflow: hidden
+
+	&:hover
+		.slide:after,
+		.counter,
+		.slide:before
+			opacity: 1
+
+	.slide 
+		float: right
+		position: absolute
+		opacity: 1
+		width: $static_width
+		height: $static_height
+		text-align: center
+		background-color: #eee
+		transition: opacity .4s
+		z-index: 1
+
+		&:before
+			content: attr(annot)
+			display: block
+			position: absolute
+			left: 20px
+			bottom: 20px
+			opacity: 0
+			font-size: 14px
+			font-weight: 300
+			color: rgba(255, 255, 255, .9)
+			text-shadow: 0 0 1px black
+			transition: opacity  .3s
+			z-index: 12
+
+		&:after
+			content: attr(slide)
+			display: block
+			position: absolute
+			bottom: 0
+			opacity: 0
+			width: 100%
+			height: 80px
+			font-size: 13px
+			text-align: left
+			text-indent: $static_width - 51px
+			line-height: 101px
+			color: rgba(255, 255, 255, .9)
+			text-shadow: 0 0 1px black
+			background-image: linear-gradient(transparent, rgba(0, 0, 0, .5))
+			transition: opacity .3s
+
+	.counter
+		position: absolute
+		right: 1px
+		bottom: 20px
+		opacity: 0
+		width: 60px
+		height: 20px
+		font-size: 13px
+		line-height: 21px
+		text-align: center
+		color: #fff
+		transition: opacity .3s
+		z-index: 2
+
+	.ui 
+		float: right
+		position: absolute
+		top: 0
+		right: 0
+		opacity: 0
+		cursor: pointer
+		margin-top: 0
+		width: 100%
+		height: 100%
+		z-index: 9
+
+		&:checked
+			z-index: 8
+
+			+ .slide
+				opacity: 0
+
+			&:nth-child(1):checked
+				z-index: 9
+
+		&:nth-child(1):checked
+			float: left
+			z-index: 9
+
+			+ .slide
+				opacity: 1
+
+			~ .ui
+				float: left
+				z-index: 8
+
+				+ .slide
+					opacity: 0
+
+				&:checked
+					z-index: 9
+
+					+ .slide
+						opacity: 1
