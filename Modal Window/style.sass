@@ -1,0 +1,71 @@
+body
+	height: 100%
+	font-family: sans-serif
+	font-size: 16px
+
+// window layout and background
+#modal
+	display: none
+	position: fixed
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+	background: rgba(0, 0, 0, .8)
+	z-index: 99
+
+	// window display
+	&:target
+		display: block
+		overflow-y: auto
+
+// modal window options
+.dialog
+	display: flex
+	flex-direction: column
+	position: relative
+	margin: 70px auto
+	width: 90%
+	max-width: 500px
+	border-radius: .3rem
+	border: 1px solid rgba(0, 0, 0, .2)
+	background-color: #fff
+	background-clip: padding-box
+	box-shadow: 0 5px 15px rgba(0, 0, 0, .5)
+
+// header
+.header
+	display: flex
+	justify-content: space-between
+	align-items: center
+	padding: 15px
+	border-bottom: 1px solid #eceeef
+
+	h3
+		margin: 0
+		font-size: 1.25rem
+		font-weight: 500
+		line-height: 1.5
+
+	// Close button
+	> a
+		float: right
+		cursor: pointer
+		opacity: .5
+		font-size: 24px
+		font-weight: 700
+		line-height: 1
+		text-decoration: none
+		color: #000
+		text-shadow: 0 1px 0 #fff
+
+		&:focus,
+		&:hover
+			opacity: .75
+	
+// main content
+.body
+	position: relative
+	flex: 1 1 auto
+	padding: 15px
+	overflow: auto
