@@ -1,0 +1,531 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400|Raleway:300)
+
+$btn-width: 180px
+$btn-height: 60px
+
+html
+	font-family: 'Open Sans', Helvetica, arial, sans-serif
+	font-size: 14px
+	text-align: center
+	background-color: #eee
+
+*,
+*:before,
+*:after
+	box-sizing: border-box
+	transition: .5s ease-in-out
+
+*:before,
+*:after
+	z-index: -1
+
+.hover-block
+	margin: 0 auto
+	padding: 0
+	width: 450px
+
+.wrap
+	float: left
+	width: 50%
+ 
+div
+	line-height: $btn-height
+	color: black
+
+span
+	transition: none
+
+$btn-color: #000
+
+[class^="btn-"]
+	display: block
+	position: relative
+	margin: 12px auto
+	width: 100%
+	max-width: $btn-width
+	height: $btn-height
+	text-transform: uppercase
+	border: 1px solid currentColor
+	overflow: hidden
+
+	&:hover
+		color: mix($btn-color, #fff, .5)
+
+
+
+.btn-1
+	$btn-color: #2e7d32
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before
+		content: ''
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		background-color: $btn-color-dark
+		transform: translateX(-100%)
+
+	&:hover
+		&:before
+			transform: translateX(0)
+
+
+
+.btn-2
+	$btn-color: #7c4dff
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before
+		content: ''
+		position: absolute
+		top: 0
+		right: -$btn-height
+		bottom: 0
+		left: 0
+		border-right: $btn-height solid transparent
+		border-bottom: $btn-height solid $btn-color-dark
+		transform: translateX(-100%)
+
+	&:hover
+		&:before
+			transform: translateX(0)
+
+
+
+.btn-3
+	$btn-color: #f50057
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		border-bottom: $btn-height solid $btn-color-dark
+
+	&:before
+		right: -$btn-height
+		border-right: $btn-height solid transparent
+		transform: translateX(-100%)
+
+	&:after
+		left: -$btn-height
+		border-left: $btn-height solid transparent
+		transform: translateX(100%)
+
+	&:hover
+		&:before
+			transform: translateX(-35%)
+
+		&:after
+			transform: translateX(35%)
+
+
+
+.btn-4
+	$btn-color: #1de9b6
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+  
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+
+	&:before
+		right: -$btn-height
+		border-right: $btn-height solid transparent
+		border-bottom: $btn-height solid $btn-color-dark
+		transform: translateX(-100%)
+  
+	&:after
+		left: -$btn-height
+		border-left: $btn-height solid transparent
+		border-top: $btn-height solid $btn-color-dark
+		transform: translateX(100%)
+
+	&:hover
+		&:before
+			transform: translateX(-45%)
+
+		&:after
+			transform: translateX(45%)
+
+
+
+.btn-5
+	$btn-color: #00897b
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		border-top: $btn-height / 2 solid $btn-color-dark
+		border-bottom: $btn-height / 2 solid $btn-color-dark
+
+	&:before
+		border-right: $btn-height / 2 solid transparent
+		transform: translateX(-100%)
+
+	&:after
+		border-left: $btn-height / 2 solid transparent
+		transform: translateX(100%)
+
+	&:hover
+		&:before
+			transform: translateX(-30%)
+
+		&:after
+			transform: translateX(30%)
+
+
+
+.btn-6
+	$btn-color: #c51162
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after,
+	span:before,
+	span:after
+		content: ''
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		background-color: $btn-color-dark
+
+	&:before
+		transform: translate(-100%, -100%)
+
+	&:after
+		transform: translate(-100%, 100%)
+
+	span:before
+		transform: translate(100%, -100%)
+
+	span:after
+		transform: translate(100%, 100%)
+
+	&:hover
+		&:before
+			transform: translate(-50%, -50%)
+
+		&:after
+			transform: translate(-50%, 50%)
+
+		span:before
+			transform: translate(50%, -50%)
+
+		span:after
+			transform: translate(50%, 50%)
+
+
+
+.btn-7
+	$btn-color: #616161
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		width: 0
+		height: 0
+		border: 0 solid
+		transform: rotate(360deg)
+
+	&:before
+		left: -1px
+		bottom: -1px
+		border-color: transparent transparent transparent $btn-color-dark
+
+	&:after
+		top: -1px
+		right: -1px
+		border-color: transparent $btn-color-dark transparent transparent
+
+	&:hover
+		&:before,
+		&:after
+			border-width: $btn-height $btn-width * 1.05
+
+
+
+.btn-8
+	$btn-color: #8bc34a
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	span
+		display: block
+		position: absolute
+		width: 0
+		height: 0
+		border-radius: 50%
+		background-color: $btn-color-dark
+		transition: width .4s ease-in-out, height .4s ease-in-out
+		transform: translate(-50%, -50%)
+		z-index: -1
+
+	&:hover
+		span
+			width: 225%
+			height: $btn-width * 2.25
+	
+	&:active
+		background-color: $btn-color-dark
+
+
+
+.btn-9
+	$btn-color: #3949ab
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after,
+	span:before,
+	span:after
+		content: ''
+		position: absolute
+		top: 0
+		width: 25.25%
+		height: 0
+		background-color: $btn-color-dark
+
+	&:before
+		left: 0
+
+	&:after
+		left: 50%
+
+	span
+		&:before,
+		&:after
+			top: auto
+			bottom: 0
+
+		&:before
+			left: 25%
+	
+		&:after
+			left: 75%
+
+	&:hover
+		&:before,
+		&:after,
+		span:before,
+		span:after
+			height: $btn-height
+
+
+
+.btn-10
+	$btn-color: #f44336
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		background-color: $btn-color-dark
+
+	&:before
+		transform: translateY(-100%)
+
+	&:after
+		transform: translateY(100%)
+
+	&:hover
+		&:before
+			transform: translateY(-50%)
+
+		&:after
+			transform: translateY(50%)
+
+
+
+.btn-11
+	$btn-color: #1a237e
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after,
+	span:before,
+	span:after
+		content: ''
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 0
+		background-color: rgba($btn-color-dark, .25)
+		transition: .4s ease-in-out
+
+	&:after,
+	span:before
+		top: auto
+		bottom: 0
+
+	span:before,
+	span:after
+		transition-delay: .4s
+
+	&:hover
+		&:before,
+		&:after,
+		span:before,
+		span:after
+			height: $btn-height
+
+	&:active
+		background-color: $btn-color-dark
+
+
+
+.btn-12
+	$btn-color: #a1887f
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after,
+	span:before,
+	span:after
+		content: ''
+		position: absolute
+		top: 0
+		left: 0
+		width: 0
+		height: $btn-height
+		background-color: rgba($btn-color-dark, .25)
+		transition: .4s
+	
+	&:after,
+	span:before
+		left: auto
+		right: 0
+
+	span:before,
+	span:after
+		transition-delay: .4s
+	
+	&:hover
+		&:before,
+		&:after,
+		span:before,
+		span:after
+			width: $btn-width
+
+	&:active
+		background-color: $btn-color-dark
+
+
+
+.btn-13
+	$btn-color: #81c784
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:before,
+	&:after
+		content: ''
+		position: absolute
+		top: 50%
+		width: $btn-height * .25
+		height: $btn-height * .25
+		border-radius: 50%
+		background-color: $btn-color-dark
+
+	&:before
+		left: -$btn-height * .25
+		transform: translate(-50%, -50%)
+
+	&:after
+		right: -$btn-height * .25
+		transform: translate(50%, -50%)
+
+	&:hover
+		&:before
+			animation: criss-cross-left .8s both
+			animation-direction: alternate
+
+		&:after
+			animation: criss-cross-right .8s both
+			animation-direction: alternate
+
+@keyframes criss-cross-left
+	0%
+		left: -$btn-height * .25
+	50%
+		left: 50%
+		width: $btn-height * .25
+		height: $btn-height * .25
+	100%
+		left: 50%
+		width: $btn-width * 1.5
+		height: $btn-width * 1.5
+
+@keyframes criss-cross-right
+	0%
+		right: -$btn-height * .25
+	50%
+		right: 50%
+		width: $btn-height * .25
+		height: $btn-height * .25
+	100%
+		right: 50%
+		width: $btn-width * 1.5
+		height: $btn-width * 1.5
+
+
+
+.btn-14
+	$btn-color: #ffd600
+	$btn-color-dark: darken($btn-color, 10%)
+	color: $btn-color
+
+	&:after
+		content: ''
+		position: absolute
+		top: 0
+		left: 0
+		bottom: 0
+		right: 0
+		opacity: 0
+		margin: auto
+		width: 100%
+		height: 1px
+		background: $btn-color-dark
+
+	&:hover:after
+		opacity: 1
+		height: 100%
