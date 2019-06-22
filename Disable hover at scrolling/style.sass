@@ -1,0 +1,17 @@
+// when scrolling the page, a new class is added to the body to turn off the effects on hover and reduce the load on the page
+.disable-hover,
+.disable-hover *
+	pointer-events: none !important
+
+
+
+div
+	margin: 5px auto
+	padding: 10px
+	width: 300px
+	height: auto
+	border-radius: 5px
+	border: 1px solid #aaa
+
+	&:hover
+		box-shadow: 1px 1px 15px #ccc
